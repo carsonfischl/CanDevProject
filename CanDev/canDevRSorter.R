@@ -4,6 +4,7 @@ library(tidyverse)
 library(readtext)
 library(janeaustenr)
 library(tm)
+library(compare)
 
 file = read.csv("C:\Users\carso\OneDrive\Documents\candevAlternateData2", stringsAsFactors=FALSE)
 
@@ -26,15 +27,9 @@ matrix <- as.matrix(dtm)
 words <- sort(rowSums(matrix),decreasing=TRUE) 
 df <- data.frame(word = names(words),freq = words)
 
-term <- c()
-class <- c()
 
-courseAssociations <- data.frame(term, class)
-
-for (Title in Title$dt_matrix){
-  if(grepl(courseAssociations(class)) == FALSE){
-    courseAssociations$class <- append(Title$dt_matrix)
-  }
-}
+courseAssociations <- dt_matrix[dt_matrix$word %in% df$word,]
+sortedCount <- courseAssociations[courseAssociations == count(courseAssociations$word, sort = TRUE)]
+uniqueWords <- courseAssociations[courseAssociations == unique(courseAssociations$Title),] 
 
 dev.off()
